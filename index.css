@@ -1,0 +1,174 @@
+:root{
+	--bg1: #0f1724;
+	--bg2: #102a43;
+	--card-bg: rgba(255,255,255,0.04);
+	--muted: #9aa8b2;
+	--accent: #5eead4;
+	--accent-2: #60a5fa;
+	--glass: rgba(255,255,255,0.03);
+	--radius: 12px;
+	--max-width: 760px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+	height: 100%;
+	margin: 0;
+	font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+	color: #e6eef3;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+/* Center content and constrain width for children */
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 48px 20px;
+	gap: 18px;
+}
+
+/* Keep all main elements nicely centered and readable */
+body > * {
+	width: 100%;
+	max-width: var(--max-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Search controls - split button from input so they can be sized independently */
+button {
+	display: block;
+	width: 100%;
+	max-width: 360px; /* decreased length for the button */
+	height: 88px;     /* increased button height */
+	margin: 0 auto;
+	border: none;
+	font-size: 16px;
+	border-radius: 10px;
+	outline: none;
+	color: #0b1220;
+	transition: transform .12s ease, box-shadow .12s ease;
+}
+
+/* Input styling: ash background and darker text for contrast */
+#movieName {
+	background: rgb(82, 87, 160); /* ash */
+	color: #e0e1e2; /* dark text on ash */
+	padding: 12px 16px;
+	border: 1px solid rgba(11,18,32,0.08);
+    border-radius: 5px;
+	box-shadow: 0 4px 18px rgba(2,6,23,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
+	font-weight: 500;
+	margin-top: 8px;
+	max-width: 520px;
+	height: 48px;
+}
+
+/* Button styling */
+button {
+	background: rgb(111, 111, 176);
+	box-shadow: 0 6px 20px rgba(45,212,191,0.12);
+	cursor: pointer;
+	font-weight: 600;
+	letter-spacing: 0.2px;
+}
+
+/* Hover & active */
+button:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(45,212,191,0.16); }
+button:active { transform: translateY(0); box-shadow: 0 6px 20px rgba(45,212,191,0.10); }
+#movieName:focus { box-shadow: 0 8px 30px rgba(12,23,42,0.55); border-color: rgba(96,165,250,0.22); }
+
+/* Movie poster styling */
+#poster {
+	display: block;
+	max-width: 320px;
+	width: 100%;
+	height: auto;
+	margin: 20px auto;
+	border-radius: 14px;
+	object-fit: cover;
+	background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+	box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+	border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Text hierarchy */
+#title {
+	margin: 10px 0 2px;
+	font-size: 28px;
+	letter-spacing: -0.4px;
+	font-weight: 700;
+	text-align: center;
+	color: #ffffff;
+}
+
+#year {
+	margin: 0 0 12px;
+	font-size: 14px;
+	color: var(--muted);
+	text-align: center;
+	font-weight: 600;
+}
+
+/* Plot card */
+#plot {
+	background: var(--card-bg);
+	padding: 16px 18px;
+	border-radius: calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0; /* top corners only */
+	color: #d8e7ee;
+	line-height: 1.5;
+	font-size: 15px;
+	border: 1px solid rgba(255,255,255,0.02);
+	box-shadow: 0 8px 30px rgba(2,6,23,0.45);
+	margin: 12px auto 0; /* remove bottom gap */
+	max-width: 680px;
+}
+
+/* Director text (subtle) — styled as the bottom part of the same card */
+#director {
+	display: block;
+	background: var(--card-bg);
+	padding: 12px 18px;
+	border-radius: 0 0 calc(var(--radius) - 2px) calc(var(--radius) - 2px); /* bottom corners only */
+	color: var(--muted);
+	font-weight: 600;
+	font-size: 14px;
+	text-align: left;
+	border-left: 1px solid rgba(255,255,255,0.02);
+	border-right: 1px solid rgba(255,255,255,0.02);
+	border-bottom: 1px solid rgba(255,255,255,0.02);
+	border-top: none; /* avoid double border between plot and director */
+	margin: 0 auto 12px;
+	max-width: 680px;
+	box-shadow: none; /* keep shadow on the combined card only (plot) */
+}
+
+/* Handle missing images gracefully */
+#poster:not([src]), #poster[src=""] {
+	aspect-ratio: 2/3;
+	background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+	display: block;
+	border-radius: 12px;
+	box-shadow: 0 8px 30px rgba(2,6,23,0.45);
+}
+
+/* Responsive tweaks */
+@media (min-width: 880px) {
+	/* On wide screens, make content slightly denser and center text */
+	body {
+		padding-top: 72px;
+	}
+	#title { font-size: 32px; }
+	#plot { font-size: 16px; max-width: 680px; }
+	#poster { max-width: 360px; }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+	button, #movieName { transition: none; transform: none; }
+}
